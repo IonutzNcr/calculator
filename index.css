@@ -4,6 +4,7 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1.2rem;
 }
+
 body{
     width:100vw;
     height:100vh;
@@ -11,6 +12,7 @@ body{
     justify-content: center;
     align-items: center;
 }
+
 .calculator-container{
     border:1px solid green;
     width:25%;
@@ -24,19 +26,45 @@ body{
     height:20%;
     background-color: rgba(151,15,14,0.4);
 }
+
 .btns{
     display:flex;
     width:100%;
     height:80%;
 }
+
 .button-digit{
     display:flex;
     flex-wrap: wrap;
     width:70%;
     height:100%;
 }
+
 .button-digit button{
     flex-grow: 1;
     width:30%;
     height:25%;
 }
+
+.btns-arithmetic{
+    display:flex;
+    flex-direction:column;
+    width:30%;
+    height:100%;
+}
+
+.btns-arithmetic button{
+    width: 100%;
+    height:20%;
+    background-color: rgba(255,200,0,0.6);
+}
+
+#equal {
+    background-color: rgba(0,200,0,0.3);
+}
+
+#clear {
+    background-color: rgba(255,2,15,0.5);
+}
+
+
