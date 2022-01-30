@@ -24,9 +24,27 @@ function operate(a,b,operator){
 
         case "multiply" : return multiply(a,b);
 
-        default : console.log("you pick an undefined case")
-        
-
+        default : console.log("you pick an undefined case");
     }
-   
 }
+
+const buttons = document.querySelectorAll("button")
+
+
+function displayCalculus(e){
+    
+    if(e.target.textContent=="C") {
+        document.querySelector(".screen").textContent = "";
+        return 0
+    }
+    if(document.querySelector(".screen").textContent == "Calculus displayus"){
+       document.querySelector(".screen").textContent = "";
+    }
+    document.querySelector(".screen").textContent += e.target.textContent
+}
+
+buttons.forEach(button=>button.addEventListener("click",displayCalculus))
+
+
+
+
