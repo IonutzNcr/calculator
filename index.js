@@ -37,6 +37,12 @@ const result = {
 const number = []
 
 function displayCalculus(e){
+    if(document.querySelector(".screen").textContent == "Calculus displayus"){
+        document.querySelector(".screen").textContent = "";
+     }
+
+    document.querySelector(".screen").textContent += e.target.textContent
+
     if(e.target.textContent=="="){
         console.log("c bon")
         return 1
@@ -50,22 +56,35 @@ function displayCalculus(e){
         return 0
     }
     if(e.target.textContent == "/" || e.target.textContent == "+" ||  e.target.textContent == "-" || e.target.textContent == "*"){
-        console.log(number)
-       result.a = +number.join("") 
-       console.log(result.a)
-       number.splice(0)
-        //if(result.a == null ) {
-       //     result.a = 
-       // }
+       
+       
+       
+       //number.splice(0)
+         if (result.a != null && result.b != null){
+            console.log(e.target.id)
+            result.a = operate(result.a,result.b,e.target.id)
+            console.log(operate(result.a,result.b,e.target.id))
+            
+            return 0
+         }
+        if (result.a == null && result.b == null ) {
+            result.a = +number.join("") 
+            number.splice(0)
+            return 0
+        }
+        if (result.b == null && result.a != null ){
+            result.b = +number.join("")
+            console.log(result.b)
+            number.splice(0)
+            return 0
+        }
+        
     }
     if(e.target.textContent != "/" && e.target.textContent != "+" &&  e.target.textContent != "-" && e.target.textContent != "*"){
         number.push(e.target.textContent)
-        console.log(number)
+        
     }
-    if(document.querySelector(".screen").textContent == "Calculus displayus"){
-       document.querySelector(".screen").textContent = "";
-    }
-    document.querySelector(".screen").textContent += e.target.textContent
+    
     
     
 }
