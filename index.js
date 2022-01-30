@@ -35,6 +35,7 @@ function displayCalculus(e){
     
     if(e.target.textContent=="C") {
         document.querySelector(".screen").textContent = "";
+        result.splice(0)
         return 0
     }
     if(document.querySelector(".screen").textContent == "Calculus displayus"){
