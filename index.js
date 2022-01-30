@@ -29,7 +29,7 @@ function operate(a,b,operator){
 }
 
 const buttons = document.querySelectorAll("button")
-
+const result = []
 
 function displayCalculus(e){
     
@@ -41,6 +41,8 @@ function displayCalculus(e){
        document.querySelector(".screen").textContent = "";
     }
     document.querySelector(".screen").textContent += e.target.textContent
+    result.push(e.target.textContent)
+    console.log(result)
 }
 
 buttons.forEach(button=>button.addEventListener("click",displayCalculus))
