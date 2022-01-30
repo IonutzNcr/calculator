@@ -2,6 +2,7 @@
     margin:0;
     padding:0;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
 }
 body{
     width:100vw;
@@ -14,5 +15,28 @@ body{
     border:1px solid green;
     width:25%;
     height:50%;
+    display:flex;
+    flex-direction: column;
 }
 
+.screen{
+    width: 100%;
+    height:20%;
+    background-color: rgba(151,15,14,0.4);
+}
+.btns{
+    display:flex;
+    width:100%;
+    height:80%;
+}
+.button-digit{
+    display:flex;
+    flex-wrap: wrap;
+    width:70%;
+    height:100%;
+}
+.button-digit button{
+    flex-grow: 1;
+    width:30%;
+    height:25%;
+}
