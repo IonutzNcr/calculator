@@ -44,8 +44,12 @@ function displayCalculus(e){
 
     document.querySelector(".screen").textContent += e.target.textContent
 
+    //set b to the last number in the screen
+    //reset number array to empty array
+    //set a with operate() function 
+    // display the output ( which should be the final result)
+    //prevent the next digit to be display near the final result 
     if(e.target.textContent=="="){
-        
         result.b = +number.join("")
         number.splice(0)
         console.log("a=",result.a,"b=",result.b)
@@ -55,6 +59,9 @@ function displayCalculus(e){
         result.isEqual = true;
         return 0
     }
+    // Screen reset to empty string
+    // Set the obj to its initial stage 
+    // Quit the function 
     if(e.target.textContent == "C") {
         document.querySelector(".screen").textContent = "";
         number.splice(0);
