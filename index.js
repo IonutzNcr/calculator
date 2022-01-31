@@ -56,6 +56,7 @@ function displayCalculus(e){
         const output = operate(result.a,result.b,result.operator);
         document.querySelector(".screen").textContent = output;
         result.a = output;
+        result.operator = null; // to check 
         result.isEqual = true;
         return 0
     }
@@ -74,14 +75,18 @@ function displayCalculus(e){
     if(e.target.textContent == "/" || e.target.textContent == "+" ||  e.target.textContent == "-" || e.target.textContent == "*"){
       
         // Prevent adding numbers on the screen after the equal sign
-       result.isEqual = false;
-        // Change the operator value depending on what u click 
-       result.operator = e.target.id; 
+        result.isEqual = false;
+
+        if(result.operator == null){
+            result.operator = e.target.id; 
+        }
+        
        
         // Initialize a when a is null!
         // Reset the number array
         // Leave the function once the condition actions are done 
         if (result.a == null && result.b == null ) {
+           
             result.a = +number.join("") 
             number.splice(0)
             return 0
@@ -92,11 +97,14 @@ function displayCalculus(e){
         //reset result.b to a null value 
 
         if (result.b == null && result.a != null ){
+            console.log(result.operator)
             result.b = +number.join("")
             result.a = operate(result.a,result.b,result.operator)
+            
             console.log("b=",result.b,"a=",result.a)
             number.splice(0)
             result.b = null;
+            result.operator = e.target.id; 
             return 0
         }
         
