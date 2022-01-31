@@ -44,7 +44,8 @@ function displayCalculus(e){
     document.querySelector(".screen").textContent += e.target.textContent
 
     if(e.target.textContent=="="){
-        console.log("c bon")
+        // Here i should write operate with the object properties 
+        //also check to see where u need to display the line above. 
         return 1
     }
     if(e.target.textContent=="C") {
@@ -57,27 +58,21 @@ function displayCalculus(e){
     }
     if(e.target.textContent == "/" || e.target.textContent == "+" ||  e.target.textContent == "-" || e.target.textContent == "*"){
        
-       console.log(result.a)
-       console.log(result.b)
        
-       //number.splice(0)
-         if (result.a != null && result.b != null){
-            console.log(e.target.id)
-            result.a = operate(result.a,result.b,e.target.id)
-            console.log(operate(result.a,result.b,e.target.id))
-            result.b = null;
-            
-            return 0
-         }
+       result.operator = e.target.id
+       
         if (result.a == null && result.b == null ) {
             result.a = +number.join("") 
+            console.log("a=",result.a)
             number.splice(0)
             return 0
         }
         if (result.b == null && result.a != null ){
             result.b = +number.join("")
-            console.log(result.b)
+            result.a = operate(result.a,result.b,e.target.id)
+            console.log("b=",result.b,"a=",result.a)
             number.splice(0)
+            result.b = null;
             return 0
         }
         
