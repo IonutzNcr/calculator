@@ -57,13 +57,15 @@ function displayCalculus(e){
     }
     if(e.target.textContent == "/" || e.target.textContent == "+" ||  e.target.textContent == "-" || e.target.textContent == "*"){
        
-       
+       console.log(result.a)
+       console.log(result.b)
        
        //number.splice(0)
          if (result.a != null && result.b != null){
             console.log(e.target.id)
             result.a = operate(result.a,result.b,e.target.id)
             console.log(operate(result.a,result.b,e.target.id))
+            result.b = null;
             
             return 0
          }
