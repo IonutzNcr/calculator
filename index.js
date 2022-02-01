@@ -41,7 +41,13 @@ function displayCalculus(e){
     if(document.querySelector(".screen").textContent == "Calculus displayus"){
         document.querySelector(".screen").textContent = "";
      }
+    
      //working on the display
+     if(e.target.textContent == "=" && result.a == null){
+        console.log("sale")
+        return 0
+    }
+    
     document.querySelector(".screen").textContent += e.target.textContent
 
     //set b to the last number in the screen
@@ -50,6 +56,7 @@ function displayCalculus(e){
     // display the output ( which should be the final result)
     //prevent the next digit to be display near the final result 
     if(e.target.textContent=="="){
+        
         result.b = +number.join("")
         number.splice(0)
         console.log("a=",result.a,"b=",result.b)
@@ -128,6 +135,7 @@ function displayCalculus(e){
     //Prevent to add numer to the final output 
     //Allow to reset the calcul after entering a digit after clicking on equal
     if(e.target.textContent != "/" && e.target.textContent != "+" &&  e.target.textContent != "-" && e.target.textContent != "*"){
+        
         number.push(e.target.textContent);
         result.b = null;
         if(result.isEqual) {
