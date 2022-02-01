@@ -41,7 +41,7 @@ function displayCalculus(e){
     if(document.querySelector(".screen").textContent == "Calculus displayus"){
         document.querySelector(".screen").textContent = "";
      }
-
+     //working on the display
     document.querySelector(".screen").textContent += e.target.textContent
 
     //set b to the last number in the screen
@@ -100,9 +100,15 @@ function displayCalculus(e){
             console.log(result.operator)
             result.b = +number.join("")
             result.a = operate(result.a,result.b,result.operator)
-            
-            console.log("b=",result.b,"a=",result.a)
             number.splice(0)
+            console.log("a",result.a)
+            //working on fixing the display of decimals 
+            //if(result.a.length>4){
+            //    document.querySelector(".screen").textContent = Math.round(result.a+100)/100 + e.target.textContent;
+            //} else{
+                
+            //} document.querySelector(".screen").textContent = result.a + e.target.textContent;
+            
             result.b = null;
             result.operator = e.target.id; 
             return 0
