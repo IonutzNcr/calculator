@@ -56,7 +56,12 @@ function displayCalculus(e){
         const output = operate(result.a,result.b,result.operator);
         document.querySelector(".screen").textContent = output;
         result.a = output;
-        result.operator = null; // to check 
+        if(Number.isInteger(result.a)==false){
+            result.a = Math.round(result.a*10000)/10000 ;
+            console.log("a apres",result.a)
+            document.querySelector(".screen").textContent = result.a;
+        }
+        result.operator = null; 
         result.isEqual = true;
         return 0
     }
@@ -102,12 +107,15 @@ function displayCalculus(e){
             result.a = operate(result.a,result.b,result.operator)
             number.splice(0)
             console.log("a",result.a)
-            //working on fixing the display of decimals 
-            //if(result.a.length>4){
-            //    document.querySelector(".screen").textContent = Math.round(result.a+100)/100 + e.target.textContent;
-            //} else{
-                
-            //} document.querySelector(".screen").textContent = result.a + e.target.textContent;
+
+            //fix the decimal at 4 digits after the dot
+            if(Number.isInteger(result.a)==false){
+                result.a = Math.round(result.a*10000)/10000 ;
+                console.log("a apres",result.a)
+                document.querySelector(".screen").textContent = Math.round(result.a*10000)/10000 + e.target.textContent;
+            } else{ 
+                document.querySelector(".screen").textContent = result.a + e.target.textContent;
+                } 
             
             result.b = null;
             result.operator = e.target.id; 
