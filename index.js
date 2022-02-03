@@ -126,7 +126,7 @@ function displayCalculus(e){
                     
                     calc.b = +number.join("");
                     number.splice(0);
-                    calc.a = operate(calc.a,calc.b,calc.operator);
+                    calc.a = Math.round((operate(calc.a,calc.b,calc.operator)*10000)/10000);
                     if(calc.a == Infinity || calc.a == -Infinity){
                         isInfinite();
                         return 0
@@ -160,7 +160,7 @@ function displayCalculus(e){
             calc.b = +number.join("");
             number.splice(0);
              calc.isEqual = true;
-            calc.a = operate(calc.a,calc.b,calc.operator);
+            calc.a = Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
             if(calc.a == Infinity || calc.a == -Infinity){
                 isInfinite();
                 return 0
