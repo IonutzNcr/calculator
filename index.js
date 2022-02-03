@@ -31,115 +31,154 @@ function operate(a,b,operator){
 const buttons = document.querySelectorAll("button");
 
 const calc = {
-    result :false,
+    
     a:null,
     b:null,
     operator:null,
     isEqual:false,
-    isAllowed:false,
+    doubleClick:false,
+    notAllowedEqual:true,
+    notAllowedOperator:true,
+    
 };
 
 const number = [];
 
 function resetCalc(){
-    calc.result = false;
+   
     calc.a = null;
     calc.b = null;
     calc.operator = null;
-    calc.isEqual = false;   // click on equal is allowed
-    calc.isAllowed = false; // click on operator is allowed 
+    calc.notAllowedOperator = true; // Prevent the use of operator before taping numbers; 
+    calc.isEqual = false;   // Regulate the way it happens after some1 clicked on equal but doesnt prevent the unusual way of using equal;
+    calc.doubleClick = false; // Prevent double click but doesn't prevent the unusual way of using operator:(e.g : using before taping a number )
+    calc.notAllowedEqual = true; // Prevent equal to display thing to the screen if there is no numbers;
+   
 }
 
 function displayCalculus(e){
+    // checkElements() debugging by viewing what values each of your object properties have 
+
     
-    if(document.querySelector(".screen").textContent == "Calculus displayus"){
+
+    if(document.querySelector(".screen").textContent == "Welcome!"){
+        document.querySelector(".screen").textContent = "";
+     }
+
+     if(document.querySelector(".screen").textContent == "ERROR"){
         document.querySelector(".screen").textContent = "";
      }
      
+     if(e.target.textContent=='C'){
+         resetCalc();
+         number.splice();
+         document.querySelector(".screen").textContent = "Welcome!";
+         return 0
+     }
     
-
+     //**Here click on digit  **/
     if(e.target.textContent != "=" && e.target.textContent != "/" && e.target.textContent != "*" && e.target.textContent != "+" && e.target.textContent != "-" && e.target.textContent != "C" ){
-        if(document.querySelector(".screen").textContent == "Pick a number"){
-            document.querySelector(".screen").textContent = "";
+       
+        if(calc.a==null){
+            calc.notAllowedOperator = false;
         }
-        if(calc.result==true){
+
+        calc.doubleClick = false;
+
+        if(calc.a!=null && calc.doubleClick==false){
+            calc.notAllowedEqual = false;  
+        }
+
+
+        if(calc.isEqual==true){
             document.querySelector(".screen").textContent = "";
             resetCalc();
-        }
-        document.querySelector(".screen").textContent += e.target.textContent
-        number.push(e.target.textContent)
-        calc.isAllowed = true;
-        
-        
-
-        if(calc.a != null) {
-            calc.isEqual = true;// c'est pas ici;
-                return 0
-        }
-        
-    } 
-    //working on equal 
-    if(e.target.textContent == "="){
-       
-        if(calc.isEqual == true){
-
-            calc.b = +number.join("")
-            number.splice(0)
-
-            calc.a = operate(calc.a,calc.b,calc.operator);
-            document.querySelector(".screen").textContent = calc.a;
-            //calc.b = null;
-
-            calc.result = true;
-            calc.isEqual = false;
-            calc.operator = null;
-            calc.isAllowed = true;
-        }
-    }
-
-    if( e.target.textContent == "/" || e.target.textContent == "*" || e.target.textContent == "+" || e.target.textContent == "-" ){
-       
-        if(document.querySelector(".screen").textContent == "" ) {
-            document.querySelector(".screen").textContent = "Pick a number";
+            number.push(e.target.textContent);
+            document.querySelector(".screen").textContent = e.target.id;
             return 0
         }
+        
+        number.push(e.target.textContent);
+        document.querySelector(".screen").textContent += e.target.textContent;
 
-        if(calc.isAllowed == true){
-            calc.isAllowed = false;
-                // the problem is after the equal you can't use operator ;
-            if(calc.result == true){
-                calc.a = +document.querySelector(".screen").textContent
-                calc.operator = e.target.id;
-                document.querySelector(".screen").textContent = calc.a + e.target.textContent 
-                //calc.result = false; //il faut pas le mettre ici
-                console.log(calc.a , calc.b, calc.operator)
-                //return 0
-            }
+        
+    } 
 
-            if(calc.a==null){
-                calc.a = +number.join("");
-                calc.operator = e.target.id;
-                number.splice(0);
+    //**Click on operator**/
+    if( e.target.textContent == "/" || e.target.textContent == "*" || e.target.textContent == "+" || e.target.textContent == "-" ){
+        
+        
 
-                document.querySelector(".screen").textContent = calc.a + e.target.textContent;
+        if(calc.notAllowedOperator == false){
+            if(calc.doubleClick == false){
+                
+                calc.doubleClick = true;
+    
+                if(calc.a==null){
+                    calc.operator = e.target.id;
+                    calc.a = +number.join("");
+                    number.splice(0);
+                    document.querySelector(".screen").textContent = calc.a + e.target.textContent;
+                    return 0
+                }
+         
+                if(calc.a != null && calc.b == null && calc.isEqual==false){
+                    
+                    calc.b = +number.join("");
+                    number.splice(0);
+                    calc.a = operate(calc.a,calc.b,calc.operator);
+                    if(calc.a == Infinity || calc.a == -Infinity){
+                        isInfinite();
+                        return 0
+                    }
+                    calc.operator = e.target.id;
+                    calc.b = null; 
+                    document.querySelector(".screen").textContent = calc.a + e.target.textContent;
+                    return 0 
+                }
+         
+                if(calc.a!=null && calc.b==null && calc.isEqual==true){
+                    calc.operator = e.target.id;
+                    calc.isEqual = false;
+                    document.querySelector(".screen").textContent = calc.a + e.target.textContent;
+                    return 0
+                }
+            } 
+        }else{
+            document.querySelector(".screen").textContent = "ERROR";
+            resetCalc();
+            number.splice(0);
+            return 0
+        }
+    
+    }
+
+    //**Click on equal **/
+    if(e.target.textContent == "="){
+        if(calc.notAllowedEqual == false){
+            
+            calc.b = +number.join("");
+            number.splice(0);
+             calc.isEqual = true;
+            calc.a = operate(calc.a,calc.b,calc.operator);
+            if(calc.a == Infinity || calc.a == -Infinity){
+                isInfinite();
                 return 0
             }
-
-            if(calc.b==null){
-                calc.b = +number.join("");
-                console.log(calc.b)
-                number.splice(0);
-                calc.a = operate(calc.a,calc.b,calc.operator);
-               
-                calc.operator = e.target.id ;
-                document.querySelector(".screen").textContent = calc.a + e.target.textContent;
-                calc.b = null;
-                
-            }
+            calc.b = null;
+           document.querySelector(".screen").textContent = calc.a; 
+           calc.notAllowedEqual == true;
+           return 0
+        } else {
+            document.querySelector(".screen").textContent = "ERROR";
+            resetCalc();
+            number.splice(0);
+            return 0
         }
-         
+        
        
     }
+    
 }
 
 buttons.forEach(button=>button.addEventListener("click",displayCalculus))
@@ -147,3 +186,19 @@ buttons.forEach(button=>button.addEventListener("click",displayCalculus))
 
 
 
+function checkElements(){
+    console.log("calc.a =",calc.a)
+    console.log("calc.b =",calc.b)
+    console.log("calc.operator =",calc.operator)
+    console.log("calc.notAllowedOperator =",calc.notAllowedOperator)
+    console.log("calc.notAllowedEqual =",calc.notAllowedEqual)
+    console.log("calc.doubleClick =",calc.doubleClick)
+    console.log("calc.isEqual =",calc.isEqual)
+}
+
+function isInfinite(){
+    document.querySelector(".screen").textContent = "ERROR";
+    resetCalc();
+    number.splice(0);
+    
+}
