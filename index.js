@@ -39,6 +39,7 @@ const calc = {
     doubleClick:false,
     notAllowedEqual:true,
     notAllowedOperator:true,
+    isAllowedFloat:false,
     
 };
 
@@ -53,10 +54,13 @@ function resetCalc(){
     calc.isEqual = false;   // Regulate the way it happens after some1 clicked on equal but doesnt prevent the unusual way of using equal;
     calc.doubleClick = false; // Prevent double click but doesn't prevent the unusual way of using operator:(e.g : using before taping a number )
     calc.notAllowedEqual = true; // Prevent equal to display thing to the screen if there is no numbers;
+    calc.isAllowedFloat = false;
    
 }
 
 function displayCalculus(e){
+
+    
     
     if(document.querySelector(".screen").textContent == "Welcome!"){
         document.querySelector(".screen").textContent = "";
@@ -66,6 +70,34 @@ function displayCalculus(e){
         document.querySelector(".screen").textContent = "";
      }
      
+     
+
+     if(number.length == 1 && calc.isEqual==false){
+         
+         calc.isAllowedFloat = true;
+     }
+
+     if(e.target.textContent == "."){
+
+        if(calc.isEqual == true){
+            
+            calc.isAllowedFloat == false;
+            return 0
+        }
+         
+        if(calc.isAllowedFloat==true){
+            
+            number.push(e.target.textContent);
+            document.querySelector(".screen").textContent += e.target.textContent;
+            calc.isAllowedFloat = false;
+            return 0
+        } else {
+             document.querySelector(".screen").textContent = "ERROR";
+             resetCalc();
+             return 0
+        }
+     }
+
      if(e.target.textContent=="AC"){
         
         if(calc.a==null){
@@ -97,7 +129,7 @@ function displayCalculus(e){
      }
     
      //**Here click on digit  **/
-    if(e.target.textContent != "=" && e.target.textContent != "/" && e.target.textContent != "*" && e.target.textContent != "+" && e.target.textContent != "-" && e.target.textContent != "C" ){
+    if(e.target.textContent != "=" && e.target.textContent != "/" && e.target.textContent != "*" && e.target.textContent != "+" && e.target.textContent != "-" && e.target.textContent != "C" && e.target.textContent != "." ){
        
         if(calc.a==null){
             calc.notAllowedOperator = false;
