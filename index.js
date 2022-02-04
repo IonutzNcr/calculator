@@ -16,13 +16,13 @@ function multiply(a,b){
 
 function operate(a,b,operator){
     switch (operator){
-        case "add" : return add(a,b);
+        case "+" : return add(a,b);
         
-        case "substract" : return substract(a,b);
+        case "-" : return substract(a,b);
 
-        case "divide" : return divide(a,b);
+        case "/" : return divide(a,b);
 
-        case "multiply" : return multiply(a,b);
+        case "*" : return multiply(a,b);
 
         default : console.log("you pick an undefined case");
     }
@@ -57,10 +57,7 @@ function resetCalc(){
 }
 
 function displayCalculus(e){
-    // checkElements() debugging by viewing what values each of your object properties have 
-
     
-
     if(document.querySelector(".screen").textContent == "Welcome!"){
         document.querySelector(".screen").textContent = "";
      }
@@ -69,6 +66,29 @@ function displayCalculus(e){
         document.querySelector(".screen").textContent = "";
      }
      
+     if(e.target.textContent=="AC"){
+        
+        if(calc.a==null){
+            number.pop();
+            document.querySelector(".screen").textContent= number.join("");
+            resetCalc();
+            return 0
+        }
+
+        if(calc.a!=null && calc.isEqual == false){
+            number.pop();
+            document.querySelector(".screen").textContent= calc.a + calc.operator + number.join("");
+            return 0
+        }
+
+        if(calc.isEqual==true){
+            number.pop();
+            document.querySelector(".screen").textContent= "ERROR";
+            return 0
+        }
+        
+     }
+
      if(e.target.textContent=='C'){
          resetCalc();
          number.splice();
@@ -115,7 +135,7 @@ function displayCalculus(e){
                 calc.doubleClick = true;
     
                 if(calc.a==null){
-                    calc.operator = e.target.id;
+                    calc.operator=e.target.textContent;
                     calc.a = +number.join("");
                     number.splice(0);
                     document.querySelector(".screen").textContent = calc.a + e.target.textContent;
@@ -131,14 +151,14 @@ function displayCalculus(e){
                         isInfinite();
                         return 0
                     }
-                    calc.operator = e.target.id;
+                    calc.operator=e.target.textContent;
                     calc.b = null; 
                     document.querySelector(".screen").textContent = calc.a + e.target.textContent;
                     return 0 
                 }
          
                 if(calc.a!=null && calc.b==null && calc.isEqual==true){
-                    calc.operator = e.target.id;
+                    calc.operator=e.target.textContent;
                     calc.isEqual = false;
                     document.querySelector(".screen").textContent = calc.a + e.target.textContent;
                     return 0
