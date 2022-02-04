@@ -254,3 +254,16 @@ function isInfinite(){
     number.splice(0);
     
 }
+
+//**Make keyboard support */
+
+function displayKey(e){
+    /*switch(e.target.key){
+        case 5 : 
+        case 15 :
+        case 35 : 
+            number.push(e.target.key)
+    }*/
+}
+
+buttons.forEach(button=>button.addEventListener("keydown",displayCalculus))
