@@ -258,12 +258,180 @@ function isInfinite(){
 //**Make keyboard support */
 
 function displayKey(e){
-    /*switch(e.target.key){
-        case 5 : 
-        case 15 :
-        case 35 : 
-            number.push(e.target.key)
-    }*/
+    // how to use regexp to compare strings ???? 
+    if(e.key.match(/[a-z]/i)){
+        console.log("un nouveau pas")
+        return 0
+    }
+    if(document.querySelector(".screen").textContent == "Welcome!"){
+        document.querySelector(".screen").textContent = "";
+     }
+
+     if(document.querySelector(".screen").textContent == "ERROR"){
+        document.querySelector(".screen").textContent = "";
+     }
+     
+     
+
+     if(number.length == 1 && calc.isEqual==false){
+         
+         calc.isAllowedFloat = true;
+     }
+
+     if(e.key == "."){
+
+        if(calc.isEqual == true){
+            
+            calc.isAllowedFloat == false;
+            return 0
+        }
+         
+        if(calc.isAllowedFloat==true){
+            
+            number.push(e.key);
+            document.querySelector(".screen").textContent += e.key;
+            calc.isAllowedFloat = false;
+            return 0
+        } else {
+             document.querySelector(".screen").textContent = "ERROR";
+             resetCalc();
+             return 0
+        }
+     }
+
+     if(e.key=="AC"){
+        
+        if(calc.a==null){
+            number.pop();
+            document.querySelector(".screen").textContent= number.join("");
+            resetCalc();
+            return 0
+        }
+
+        if(calc.a!=null && calc.isEqual == false){
+            number.pop();
+            document.querySelector(".screen").textContent= calc.a + calc.operator + number.join("");
+            return 0
+        }
+
+        if(calc.isEqual==true){
+            number.pop();
+            document.querySelector(".screen").textContent= "ERROR";
+            return 0
+        }
+        
+     }
+
+     if(e.key=='C'){
+         resetCalc();
+         number.splice();
+         document.querySelector(".screen").textContent = "Welcome!";
+         return 0
+     }
+    
+     //**Here click on digit  **/
+    if(e.key != "=" && e.key != "/" && e.key != "*" && e.key != "+" && e.key != "-" && e.key != "C" && e.key != "." ){
+       
+        if(calc.a==null){
+            calc.notAllowedOperator = false;
+        }
+
+        calc.doubleClick = false;
+
+        if(calc.a!=null && calc.doubleClick==false){
+            calc.notAllowedEqual = false;  
+        }
+
+
+        if(calc.isEqual==true){
+            document.querySelector(".screen").textContent = "";
+            resetCalc();
+            number.push(e.key);
+            document.querySelector(".screen").textContent = e.target.id;
+            return 0
+        }
+        
+        number.push(e.key);
+        document.querySelector(".screen").textContent += e.key;
+
+        
+    } 
+
+    //**Click on operator**/
+    if( e.key == "/" || e.key == "*" || e.key == "+" || e.key == "-" ){
+        
+        
+
+        if(calc.notAllowedOperator == false){
+            if(calc.doubleClick == false){
+                
+                calc.doubleClick = true;
+    
+                if(calc.a==null){
+                    calc.operator=e.key;
+                    calc.a = +number.join("");
+                    number.splice(0);
+                    document.querySelector(".screen").textContent = calc.a + e.key;
+                    return 0
+                }
+         
+                if(calc.a != null && calc.b == null && calc.isEqual==false){
+                    
+                    calc.b = +number.join("");
+                    number.splice(0);
+                    calc.a = Math.round((operate(calc.a,calc.b,calc.operator)*10000)/10000);
+                    if(calc.a == Infinity || calc.a == -Infinity){
+                        isInfinite();
+                        return 0
+                    }
+                    calc.operator=e.key;
+                    calc.b = null; 
+                    document.querySelector(".screen").textContent = calc.a + e.key;
+                    return 0 
+                }
+         
+                if(calc.a!=null && calc.b==null && calc.isEqual==true){
+                    calc.operator=e.key;
+                    calc.isEqual = false;
+                    document.querySelector(".screen").textContent = calc.a + e.key;
+                    return 0
+                }
+            } 
+        }else{
+            document.querySelector(".screen").textContent = "ERROR";
+            resetCalc();
+            number.splice(0);
+            return 0
+        }
+    
+    }
+
+    //**Click on equal **/
+    if(e.key == "="){
+        if(calc.notAllowedEqual == false){
+            
+            calc.b = +number.join("");
+            number.splice(0);
+             calc.isEqual = true;
+            calc.a = Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
+            if(calc.a == Infinity || calc.a == -Infinity){
+                isInfinite();
+                return 0
+            }
+            calc.b = null;
+           document.querySelector(".screen").textContent = calc.a; 
+           calc.notAllowedEqual == true;
+           return 0
+        } else {
+            document.querySelector(".screen").textContent = "ERROR";
+            resetCalc();
+            number.splice(0);
+            return 0
+        }
+        
+       
+    }
+    console.log(e.key)
 }
 
-buttons.forEach(button=>button.addEventListener("keydown",displayCalculus))
+document.querySelector("body").addEventListener("keydown",displayKey)
