@@ -258,11 +258,12 @@ function isInfinite(){
 //**Make keyboard support */
 
 function displayKey(e){
-    // how to use regexp to compare strings ???? 
-    if(e.key.match(/[a-z]/i)){
-        console.log("un nouveau pas")
+    
+    if(e.key.match(/[a-z]/i ) && e.key != "Enter" && e.key != "Backspace"){
+        console.log(e.key)
         return 0
     }
+
     if(document.querySelector(".screen").textContent == "Welcome!"){
         document.querySelector(".screen").textContent = "";
      }
@@ -299,7 +300,7 @@ function displayKey(e){
         }
      }
 
-     if(e.key=="AC"){
+     if(e.key=="AC" || e.key =="Backspace"){
         
         if(calc.a==null){
             number.pop();
@@ -330,7 +331,7 @@ function displayKey(e){
      }
     
      //**Here click on digit  **/
-    if(e.key != "=" && e.key != "/" && e.key != "*" && e.key != "+" && e.key != "-" && e.key != "C" && e.key != "." ){
+    if(e.key != "=" && e.key != "/" && e.key != "*" && e.key != "+" && e.key != "-" && e.key != "C" && e.key != "." && e.key != "Enter"){
        
         if(calc.a==null){
             calc.notAllowedOperator = false;
@@ -347,7 +348,7 @@ function displayKey(e){
             document.querySelector(".screen").textContent = "";
             resetCalc();
             number.push(e.key);
-            document.querySelector(".screen").textContent = e.target.id;
+            document.querySelector(".screen").textContent = e.key;
             return 0
         }
         
@@ -407,7 +408,7 @@ function displayKey(e){
     }
 
     //**Click on equal **/
-    if(e.key == "="){
+    if(e.key == "=" || e.key == "Enter"){ // search here there is a problme when pressin enter;
         if(calc.notAllowedEqual == false){
             
             calc.b = +number.join("");
@@ -431,7 +432,7 @@ function displayKey(e){
         
        
     }
-    console.log(e.key)
+    
 }
 
 document.querySelector("body").addEventListener("keydown",displayKey)
