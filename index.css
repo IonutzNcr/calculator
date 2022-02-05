@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 *{
     margin:0;
     padding:0;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Bebas Neue", Georgia, 'Times New Roman', Times, serif;
     font-size: 1.2rem;
-    background-color: rgba(65, 60, 60,0.4);
+    background-color: rgba(241, 241, 241, 0.4);
 }
 
 body{
@@ -16,21 +18,27 @@ body{
 }
 
 .calculator-container{
+    box-shadow: 10px 5px 5px rgb(148, 144, 144);
     border:1px solid green;
     width:18%;
     height:50%;
     display:flex;
     flex-direction: column;
+    border:rgb(221, 134, 217) 10px solid;
+    border-top: 100px solid rgb(172, 134, 221) ;
 }
 
 .screen{
+    box-sizing: border-box;
     display:flex;
     align-items: center;
     justify-content: flex-end;
     
     width: 100%;
     height:20%;
-    background-color: rgba(151,15,14,0.4);
+    background-color: rgb(139, 173, 136);
+    border:1px solid rgb(150, 131, 131);
+
 }
 
 .btns{
@@ -41,15 +49,36 @@ body{
 
 .button-digit{
     display:flex;
+    flex-direction: column;
     flex-wrap: wrap;
     width:70%;
     height:100%;
 }
 
 .button-digit button{
+    
     flex-grow: 1;
     width:30%;
     height:25%;
+}
+.digit{
+    display:flex;
+    flex-wrap: wrap;
+    height:80%;
+    width:100%;
+}
+.digit button{
+    height:25%;
+    width:33%;
+}
+.upper-maths{
+    display:flex;
+    height:20%;
+
+}
+.upper-maths button{
+    height:100%;
+    background-color: rgba(255,200,0,0.6);
 }
 
 .btns-arithmetic{
@@ -59,30 +88,27 @@ body{
     height:100%;
 }
 
-.btns-arithmetic button:hover{
-    background-color: rgb(156, 28, 28);
-}
+
 
 .btns-arithmetic button{
     width: 100%;
     height:20%;
     background-color: rgba(255,200,0,0.6);
 }
-
-#equal {
-    background-color: rgba(0,200,0,0.3);
+.usless {
+    display:none;
 }
 
-#clear {
-    background-color: rgba(255,2,15,0.5);
+
+button:hover{
+    background-color: rgb(178, 247, 74);
+}
+button{
+    border:1px solid rgb(150, 131, 131);
+    background-color: rgb(109, 116, 102);
+    
 }
 
-.notice{ 
-    width:25%;
-    height:50%;
-    display:flex;
-    gap:1rem;
-    flex-direction: column;
-    justify-content: flex-start;
+.green{
+    background-color: rgb(27, 46, 27);
 }
-
