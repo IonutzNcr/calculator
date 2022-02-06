@@ -112,3 +112,10 @@ button{
 .green{
     background-color: rgb(27, 46, 27);
 }
+
+#equal{
+    background-color:  rgb(81, 141, 81);
+}
+#equal:hover{
+    background-color: rgb(178, 247, 74);
+}
