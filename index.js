@@ -38,6 +38,7 @@ const calc = {
     allowedEqual:false,
     allowedOperator : false,
     allowedReset : false,
+    allowedDot : true,
 };
 
 const number = [];
@@ -51,6 +52,7 @@ function resetCalc(){
     + define if we can use an operator (because if we can use equal we can also use an operator))*/
     calc.allowedOperator = false;
     calc.allowedReset = false;
+    calc.allowedDot = true;
 };
 
 buttons.forEach(button=>button.addEventListener("click",displayCalculus))
@@ -75,7 +77,13 @@ function displayCalculus(e){
     Put the digit inside the array,
     Display the the previous content on the screen and the current content
     */
-    if(e.target.textContent.match(/[0-9]/)){
+    if(e.target.textContent.match(/[0-9.]/)){
+
+        
+        if(calc.allowedDot==false && e.target.textContent.match(/[.]/)){
+            return
+        }
+
         /* When a result is displayed using equal sign and then the user click on a digit:
         the outcome to be expected is to reset everthing */
         if(calc.allowedReset==true){
@@ -86,6 +94,10 @@ function displayCalculus(e){
         calc.allowedEqual = true;
         number.push(e.target.textContent);
         document.querySelector(".screen").textContent = number.join("");
+
+        if(calc.allowedDot==true && e.target.textContent.match(/[.]/)){
+            calc.allowedDot=false;
+        }
     }
 
     /* When user click on equal */
@@ -95,6 +107,7 @@ function displayCalculus(e){
             calc.allowedEqual = false;
             calc.allowedOperator = true;
             calc.allowedReset = true;
+            calc.allowedDot = true;
             if(calc.a==null){
                 calc.a = +number.join("")
                 number.splice(0)
@@ -108,7 +121,7 @@ function displayCalculus(e){
             if(calc.a != null){
                 calc.b = +number.join("")
                 number.splice(0)
-                calc.a = operate(calc.a,calc.b,calc.operator)
+                calc.a = Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
                 calc.b = null
                 document.querySelector(".screen").textContent = calc.a
                 console.log("a!=nul")
@@ -133,6 +146,7 @@ function displayCalculus(e){
         number.splice(0);
         document.querySelector(".screen").textContent = calc.a + e.target.textContent
         calc.operator = e.target.textContent;
+        return 
         }
 
         /* If there is only a number saved:
@@ -147,7 +161,7 @@ function displayCalculus(e){
         console.log("why")
         calc.b= +number.join("")
         number.splice(0);
-        calc.a= operate(calc.a,calc.b,calc.operator)
+        calc.a= Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
         document.querySelector(".screen").textContent = calc.a + e.target.textContent
         calc.operator = e.target.textContent
 
@@ -155,6 +169,7 @@ function displayCalculus(e){
         calc.allowedEqual = false;
         calc.allowedOperator = false;
         calc.allowedReset = false;
+        calc.allowedDot = true;
     }
 }
 

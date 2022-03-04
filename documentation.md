@@ -47,4 +47,7 @@ allowedDot = true means that u can use the dot
 
 allowedDot = false means u can't use the dot
 
-allowedDot should be true when 
+allowedDot should be true when : - at the beginining , 
+                                - after equal and operator,
+
+allowedDot should be false after clicking on dot.
