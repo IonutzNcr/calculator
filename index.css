@@ -20,7 +20,7 @@ body{
 .calculator-container{
     box-shadow: 10px 5px 5px rgb(148, 144, 144);
     border:1px solid green;
-    width:18%;
+    width:min(300px,50%);
     height:50%;
     display:flex;
     flex-direction: column;
@@ -87,8 +87,6 @@ body{
     width:30%;
     height:100%;
 }
-
-
 
 .btns-arithmetic button{
     width: 100%;
