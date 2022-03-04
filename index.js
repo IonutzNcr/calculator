@@ -55,21 +55,19 @@ function resetCalc(){
     calc.allowedDot = true;
 };
 
-buttons.forEach(button=>button.addEventListener("click",displayCalculus))
+buttons.forEach(button=>button.addEventListener("click",displayCalculus));
 
 function displayCalculus(e){
-    resetScreen();
-
+    
     if(e.target.textContent.match(/[C]/)){
-        resetCalc()
-        document.querySelector(".screen").textContent = "Welcome!" 
-        number.splice(0)
-        return 
-        
+        resetCalc();
+        document.querySelector(".screen").textContent = "Welcome!"; 
+        number.splice(0);
+        return   
     }
 
     if(e.target.textContent.match(/[AC]/)){
-        number.pop()
+        number.pop();
         document.querySelector(".screen").textContent = number.join("");
 
     }
@@ -93,6 +91,7 @@ function displayCalculus(e){
             resetCalc();
             calc.allowedReset = false;
         }
+        
         calc.allowedOperator = true;
         calc.allowedEqual = true;
         number.push(e.target.textContent);
@@ -107,7 +106,7 @@ function displayCalculus(e){
     if(e.target.textContent.match(/[=]/)){
 
         if(calc.a== null){
-            document.querySelector(".screen").textContent = "Welcome!"
+            document.querySelector(".screen").textContent = "Welcome!";
             return
         }
 
@@ -117,22 +116,22 @@ function displayCalculus(e){
             calc.allowedReset = true;
             calc.allowedDot = true;
             if(calc.a==null){
-                calc.a = +number.join("")
-                number.splice(0)
+                calc.a = +number.join("");
+                number.splice(0);
                 document.querySelector(".screen").textContent = calc.a;
                 return 
             }
     
             if(calc.a != null){
-                calc.b = +number.join("")
-                number.splice(0)
+                calc.b = +number.join("");
+                number.splice(0);
                 calc.a = Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
                 if(calc.a == Infinity){
-                    document.querySelector(".screen").textContent = "You can't do that !"
-                    resetCalc()
+                    document.querySelector(".screen").textContent = "You can't do that !";
+                    resetCalc();
                     return
                 }
-                calc.b = null
+                calc.b = null;
                 document.querySelector(".screen").textContent = calc.a;
                 calc.operator = null;
             }
@@ -149,13 +148,9 @@ function displayCalculus(e){
         
         /* prevent the empty screen because of the reset function at the begining of the big function */
         if(calc.allowedOperator==false){
-           
-            document.querySelector(".screen").textContent = "Welcome!"
-            return
-        
+            document.querySelector(".screen").textContent = "Welcome!";
+            return  
         }
-
-        
 
         calc.allowedEqual = false;
         calc.allowedOperator = false;
@@ -168,12 +163,11 @@ function displayCalculus(e){
         Display the number inside calc.a and the operator
         */
         if(calc.a == null){
-        console.log(number)
-        calc.a = +number.join("")
-        number.splice(0);
-        document.querySelector(".screen").textContent = calc.a + e.target.textContent
-        calc.operator = e.target.textContent;
-        return 
+            calc.a = +number.join("");
+            number.splice(0);
+            document.querySelector(".screen").textContent = calc.a + e.target.textContent;
+            calc.operator = e.target.textContent;
+            return 
         }
 
         /* If there is only a number saved:
@@ -184,24 +178,23 @@ function displayCalculus(e){
         Save the new operator inside calc.operator ,
         */
         if(calc.a!=null && calc.operator != null ){
-        
-       
-        calc.b= +number.join("")
-        number.splice(0);
-        calc.a= Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
-        if(calc.a == Infinity){
-            document.querySelector(".screen").textContent = "You can't do that !"
-            resetCalc()
-            return
-        }
-        document.querySelector(".screen").textContent = calc.a + e.target.textContent
-        calc.operator = e.target.textContent
+            calc.b= +number.join("");
+            number.splice(0);
+            calc.a= Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
 
+            if(calc.a == Infinity){
+                document.querySelector(".screen").textContent = "You can't do that !";
+                resetCalc();
+                return
+            }
+
+            document.querySelector(".screen").textContent = calc.a + e.target.textContent;
+            calc.operator = e.target.textContent;
         }
 
         if(calc.a!=null && calc.operator == null ){
-            calc.operator = e.target.textContent
-            document.querySelector(".screen").textContent = calc.a + e.target.textContent
+            calc.operator = e.target.textContent;
+            document.querySelector(".screen").textContent = calc.a + e.target.textContent;
         }
         
     }
@@ -219,22 +212,20 @@ function resetScreen(){
     Same logic same code but some minor changes that's it 
 */
 
-document.querySelector("body").addEventListener("keydown",displayKey)
+document.querySelector("body").addEventListener("keydown",displayKey);
 
 function displayKey(e){
 
-    resetScreen();
-
     if(e.key == "c" || e.key == "C" ){
         resetCalc()
-        document.querySelector(".screen").textContent = "Welcome!" 
-        number.splice(0)
+        document.querySelector(".screen").textContent = "Welcome!"; 
+        number.splice(0);
         return 
         
     }
 
     if(e.key== "Backspace"){
-        number.pop()
+        number.pop();
         document.querySelector(".screen").textContent = number.join("");
 
     }
@@ -268,7 +259,7 @@ function displayKey(e){
     if(e.key.match(/[=]/) || e.key == "Enter"){
 
         if(calc.a == null){
-            document.querySelector(".screen").textContent = "Welcome!"
+            document.querySelector(".screen").textContent = "Welcome!";
             return
         }
 
@@ -278,25 +269,26 @@ function displayKey(e){
             calc.allowedReset = true;
             calc.allowedDot = true;
             if(calc.a==null){
-                calc.a = +number.join("")
-                number.splice(0)
+                calc.a = +number.join("");
+                number.splice(0);
                 document.querySelector(".screen").textContent = calc.a;
-                
                 return 
             }
     
             if(calc.a != null){
-                calc.b = +number.join("")
-                number.splice(0)
+                calc.b = +number.join("");
+                number.splice(0);
                 calc.a = Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
+
                 if(calc.a == Infinity){
-                    document.querySelector(".screen").textContent = "You can't do that !"
-                    resetCalc()
+                    document.querySelector(".screen").textContent = "You can't do that !";
+                    resetCalc();
                     return
                 }
-                calc.b = null
-                document.querySelector(".screen").textContent = calc.a
-                console.log("a!=nul")
+
+                calc.b = null;
+                document.querySelector(".screen").textContent = calc.a;
+                console.log("a!=nul");
                 calc.operator = null;
             }
             
@@ -306,10 +298,8 @@ function displayKey(e){
 
     if( e.key.match(/[*/+-]/) ){
 
-        
-        
         if(calc.allowedOperator==false){
-            document.querySelector(".screen").textContent = "Welcome!"
+            document.querySelector(".screen").textContent = "Welcome!";
             return
         }
 
@@ -319,33 +309,32 @@ function displayKey(e){
         calc.allowedDot = true;
 
         if(calc.a == null){
-        console.log(number)
-        calc.a = +number.join("")
-        number.splice(0);
-        document.querySelector(".screen").textContent = calc.a + e.key
-        calc.operator = e.key;
+            calc.a = +number.join("");
+            number.splice(0);
+            document.querySelector(".screen").textContent = calc.a + e.key;
+            calc.operator = e.key;
         return 
         }
 
         if(calc.a!=null && calc.operator != null ){
          
-        calc.b= +number.join("")
-        number.splice(0);
-        calc.a= Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
+            calc.b= +number.join("")
+            number.splice(0);
+            calc.a= Math.round(operate(calc.a,calc.b,calc.operator)*10000)/10000;
 
-        if(calc.a == Infinity){
-            document.querySelector(".screen").textContent = "You can't do that !"
-            resetCalc()
-            return
-        }
+            if(calc.a == Infinity){
+                document.querySelector(".screen").textContent = "You can't do that !";
+                resetCalc();
+                return
+            }
 
-        document.querySelector(".screen").textContent = calc.a + e.key
-        calc.operator = e.key
+            document.querySelector(".screen").textContent = calc.a + e.key;
+            calc.operator = e.key;
         }
 
         if(calc.a!=null && calc.operator == null ){
-            calc.operator = e.key
-            document.querySelector(".screen").textContent = calc.a + e.key
+            calc.operator = e.key;
+            document.querySelector(".screen").textContent = calc.a + e.key;
         }
         
     }
