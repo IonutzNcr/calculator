@@ -59,6 +59,12 @@ buttons.forEach(button=>button.addEventListener("click",displayCalculus));
 
 function displayCalculus(e){
     
+    if(e.target.textContent.match(/AC/)){
+        number.pop();
+        document.querySelector(".screen").textContent = number.join("");
+        return
+    }
+
     if(e.target.textContent.match(/[C]/)){
         resetCalc();
         document.querySelector(".screen").textContent = "Welcome!"; 
@@ -66,11 +72,7 @@ function displayCalculus(e){
         return   
     }
 
-    if(e.target.textContent.match(/[AC]/)){
-        number.pop();
-        document.querySelector(".screen").textContent = number.join("");
-
-    }
+    
     /* When the user click on a digit:
     Put the digit inside the array,
     Display the the previous content on the screen and the current content
