@@ -91,7 +91,7 @@ function displayCalculus(e){
             resetCalc();
             calc.allowedReset = false;
         }
-        
+
         calc.allowedOperator = true;
         calc.allowedEqual = true;
         number.push(e.target.textContent);
@@ -148,7 +148,6 @@ function displayCalculus(e){
         
         /* prevent the empty screen because of the reset function at the begining of the big function */
         if(calc.allowedOperator==false){
-            document.querySelector(".screen").textContent = "Welcome!";
             return  
         }
 

@@ -21,7 +21,7 @@ body{
     box-shadow: 10px 5px 5px rgb(148, 144, 144);
     border:1px solid green;
     width:min(300px,50%);
-    height:50%;
+    height:80%;
     display:flex;
     flex-direction: column;
     border:rgb(221, 134, 217) 10px solid;
