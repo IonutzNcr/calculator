@@ -17,5 +17,6 @@ To improve :
 --Comments construction 
 --Write better structure 
 --Improve your logic  
+--Deconstructing my algorithm in function 
 
 
